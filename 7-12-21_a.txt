@@ -1,0 +1,83 @@
+Suppose 
+ 
+Display the sum of salaries for every manager whose manager is not null and that the sum of salaries should be greater than 10000.
+
+
+HAVING clause
+
+To restrict groups we use HAVING clause
+
+syntax:
+
+select column,grp_function(column)
+from tablename
+where condition
+group by column or columns
+having condition
+order by column asc or desc;
+
+
+select manager_id, sum(salary) from employees where manager_id is not null  group by manager_id having sum(salary) > 10000;
+
+
+
+COUNT - It counts number of rows.
+
+COUNT(*)- It counts all the rows duplicates and NULL values.
+
+COUNT(expr)- It counts only duplicate rows but ignores NULL values.
+
+COUNT(DISTINCT expr) -It counts only unique values and ignores NULL values.
+
+COUNT(*)-select count(*) from employees;
+
+COUNT(expr) -Display the number of employees in every department.
+
+select department_id,count(employee_id) from employees group by department_id;
+select count(manager_id) from employees;
+
+
+Display the number of jobs in every department and that number of jobs should be greater than 2.
+
+select count(job_id),department_id from employees group by department_id having count(job_id) >2;
+ 
+select year(hire_date),count(employee_id) from employees group by year(hire_date) having count(employee_id) >10; 
+
+SUBQUERIES-
+
+Subquery is query within a query.
+Subquery is also known as INNER QUERY.
+
+Display the lastname salary of all employees whose salary is  greater than that of Kochhar.
+
+syntax:
+
+select column_list from tablename where column comparison opr (select column from tablename where condition(s));
+
+select last_name,salary from employees where salary > (select salary from employees where last_name='Kochhar');
+
+
+Rules-
+
+1. Subquery is enclosed within parentheses.
+2. Subquery is placed on the right side of the comparison condition of main query.
+3. Single row operators are used for single row subqueries and multiple row operators for multiple row subqueries.
+
+Single Row Operators- <,>,=,<> or != ,=<,>=
+Multiple Row Operators- IN,ANY,ALL
+
+Write a query to display  the last name and hiredate  of any employee in same department.
+
+select last_name,hire_date from employees where department_id IN(select department_id from employees );
+
+Display the name,department of those employees whose job_id is same as that of job_id with last name Greenberg.
+
+select last_name,department_id from employees where job_id =(select job_id from employees where last_name='Greenberg');
+
+
+Display the maximum salary in every department whose department is not 2,3,4 and that the maximum salary should be less than 10000.
+
+select department_id,max(salary) from employees where department_id not in (2,3,4) group by department_id 
+having max(salary) < 10000;
+
+

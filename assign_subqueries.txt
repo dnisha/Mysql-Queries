@@ -1,0 +1,35 @@
+1. Write a query to display the name ( first name and last name ) for those employees who gets more salary than the employee whose ID is 163.
+
+2. Write a query to display the name ( first name and last name ), salary, department id, job id for those employees who works in the same designation as the employee works whose id is 203.
+
+3.Write a query to display the name ( first name and last name ), salary, department id for those employees who earn such amount of salary which is the smallest salary of any of the departments.
+
+4. Write a query to display the employee id, employee name (first name and last name ) for all employees who earn more than the average salary.  
+
+5. Write a query to display the employee name ( first name and last name ), employee id and salary of all employees who report to first name 'Pataballa'.
+
+6.  Write a query to display the department number, name ( first name and last name ), job and department name for all employees in the Finance department.  
+
+7. Write a query to display all the information of an employee whose salary and reporting person id is 3000 and 121 respectively.  
+
+8. Display all the information of an employee whose id is any of the number 134, 159 and 183.
+
+9.  Write a query to display all the information of the employees whose salary is within the range 1000 and 3000.
+
+10. Write a query to display all the information of the employees whose salary is within the range of smallest salary and 2500. 
+
+11. Write a query to display all the information of the employees who does not work in those departments where some employees works whose manager id within the range 100 and 200.
+
+12. Write a query to display all the information for those employees whose id is any id who earn the second highest salary.
+
+13. Write a query to display the employee name( first name and last name ) and hiredate for all employees in the same department as Neena. Exclude Neena.
+
+14. Write a query to display the employee number and name( first name and last name ) for all employees who work in a department with any employee whose name contains a T. 
+
+15. Write a query to display the employee number, name( first name and last name ), and salary for all employees who earn more than the average salary and who work in a department with any employee with a J in their name.
+
+16. Display the employee name( first name and last name ), employee id, and job title for all employees whose department location is Toronto.
+
+17. Write a query to display the employee number, name( first name and last name ) and job title for all employees whose salary is more than any average salary of any department.
+
+18.Write a query to display the employee name( first name and last name ) and department for all employees for any existence of those employees whose salary is more than 3700.  

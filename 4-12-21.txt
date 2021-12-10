@@ -1,0 +1,306 @@
+Functions-
+
+It accepts arguments and produce the desired output.
+
+Types of functions according to functionality-
+
+a. Built-in functions-They are already defined by RDBMS.
+
+b. User defined functions-According to the requirements ,the functions are created.
+
+a. Built -In functions
+Types of functions according to returning  of number of rows-
+
+1. Single Row functions
+2. Group or Aggregate functions.-single output for set of rows
+
+
+1. Single Row functions-
+
+Features-
+
+i. It acts on every row and produce the output for every row.
+ii. It helps in changing the datatypes of the columns.
+iii. It helps in treatment of NULL values.
+iv. Some special functions provide a different functionality.
+
+Single Row Functions are divided in 4 categories-
+
+1. String or Character functions
+2. Number functions
+3. Date time functions
+4. Special functions
+
+1. String functions or Character functions-
+
+Functions act on the character data and produce the desired output.
+
+a. Case Manipulation
+b. Character Manipulation
+
+a. Case Manipulation
+
+UPPER 
+LOWER
+
+UPPER - This function converts lowercase to uppercase.
+LOWER- It will convert uppercase to lowercase.
+
+String : helloworld
+select upper('helloworld');
+
+syntax:
+
+functionname(arg1,...argn)
+helloworld
+Display the lastnames of every employee in uppercase.
+
+select employee_id,last_name,upper(last_name) from employees;
+
+example:
+select *,lower(first_name),upper(email) from employees;
+
+b. Character Manipulation-
+
+i. CONCAT(String1,....string n)
+
+This is to combine multiple strings.
+
+syntax:
+
+concat(string1,string2,...stringn)
+
+This is a class for employee.
+concat('this','is','a','class','for','employee')
+
+Write a query to combine first name and last name as name for every employee.
+
+example 
+
+this is a class on dbms
+
+
+concat('this','is','a' ,'class','on','dbms')
+
+select *,concat(first_name,' ',last_name) name from employees;
+select *,concat(first_name,'earns',salary) name from employees;
+
+ii. Substr-
+It extracts string from main string.
+
+syntax:
+substr(main string ,m,n)
+ by default value of m is 1.
+m= search position value (It can be positive or negative) + for searching from left to right  and - for searching from right to left.
+n=number of characters to be extracted.
+
+helloworld
+
+substr('helloworld',1,5)
+
+Write a query to extract first three characters from the email.
+
+select *,substr(email,1,3) from employees;
+
+iii. Substring_Index
+This is being used alongwith substr for displaying the data from the main string related to special characters.
+
+syntax:
+
+substring_index(string,delimiter,number )
+
+string: character string
+delimiter- symbol for start of search
+number- number of times to be searched for delimiter.(can be + or -)
++ value searching from left to right
+- value searching from right to left
+
+example
+
+select substring_index('www.abc.com','.',2);
+
+Display the details of employees and that email to be dipslayed from position @.
+
+select *,substring_index(email,'@',-1) from employees;
+
+select substring_index('https://www.test.com',':',1)
+
+
+iv. instr - It displays numeric value of  the occurrence of the character in the string.
+
+syntax
+
+instr(main string,'character')
+
+select ('helloworld','l')
+
+Display the details of employees and also numeric value of first occurrence of a in last names.
+select *, instr(last_name,'a') from employees;
+
+v. lpad or rpad- 
+
+It helps in padding the characters alongwith the text.
+
+syntax:
+lpad(main string,total length,padding character)
+
+rpad(main string,total length,padding character)
+
+select lpad('helloworld',15,'*');
+Display details of employees and that phone number to be padded on right side by #.
+
+select *,phone_number,rpad(phone_number,30,'#') from employees;
+
+select lpad(rpad('hello',10,'$'),15,'$');
+
+Nested function example:
+
+select concat(rpad(substr('hello',1,2),5,'*'),substr('hello',-3,3));
+
+vi. Length - It Returns number of characters in the string.
+
+syntax:
+length(string)
+
+select length('helloworld')
+
+Display the details and length of the first name of every employee.
+
+select *,length(first_name) from employees;
+
+vii. trim - It removes heading or trailing characters from the string.
+
+syntax:
+trim('heading or trailing character' from main string);
+
+select trim('h' from 'helloworld');
+
+example for substring_index
+select *,concat(substring_index(email,'@',1),substring_index(email,'@',-1)) from employees;
+
+viii. Replace- 
+It is used to replace the search string from main string
+
+syntax:
+replace(mainstring,search string,replace string);
+
+select  replace('helloworld','hello','abcd');
+
+
+2. Number Functions-
+
+The functions related to numeric datatypes.
+
+i. ABS()-
+This function returns positive value of integer even if the input is negative.
+
+example:
+abs(-89)=89
+
+ii. CEIL- returns upper value
+syntax:
+ceil(x)
+
+iii. FLOOR(x)- Returns lower value
+iv. GREATEST(x1,x2...xn)-returns highest value from list of numbers given.
+v. LEAST(x1,x2,....xn) -returns least value from list of numbers given.
+
+Display the highest value from salary and department number.
+
+select greatest(salary,department_id),least(salary,department_id) from employees;
+
+vi MOD(dividend,divisor)-Returns remainder of division.
+select salary,mod(salary,5) from employees;
+vii. POW or POWER-pow(base,exponent)or power(base,exponent)
+viii. ROUND(x,n)
+x is digits before decimal
+n number of digits after decimal
+ix. TRUNCATE(x,n)- It truncates the given values.
+
+3. DATE functions-
+
+i. SYSDATE()or NOW()
+Returns current date and time of the server.
+ii. CURDATE()-Returns current date.
+iii. CURTIME()-Returns current time.
+iv. DATEDIFF(recent date,previous date)
+It returns number of days between two dates.
+
+Display number of days passed between hire date and current date.
+
+select *,datediff(curdate(),hire_date) from employees;
+
+v.DATE_ADD-To add date to existing date.
+select DATE_ADD('2021-12-01',INTERVAL 30 DAY);
+INTERVAL n DAY
+INTERVAL n YEAR
+
+DATE_SUB-To subtract date from existing date
+select DATE_SUB('2021-12-01',INTERVAL 30 DAY);
+INTERVAL n DAY
+INTERVAL n YEAR
+vi DATE_FORMAT-If we want to write date in different format other than default.
+
+select DATE_FORMAT('2021-11-28','%D-%M-%Y');
+
+vii. DAYNAME -Returns day of the week.(Monday to Sunday)
+select dayname(sysdate());
+
+viii. DAYOFWEEK- Returns day of week index.
+Sunday-1
+Monday-2.....Saturday-7
+
+ix. EXTRACT- Extracts day,month or year from the particular date.
+select extract(day from '2012-11-08');
+
+x. LAST_DAY- returns last day of the month.
+
+select last_day('2021-11-8');
+
+WEEK ,WEEKDAY,YEAR
+
+xi. TO_DAYS-Returns date converted to days.
+TO_DAYS('2021-11-8'); 
+
+
+
+date_format(expr or column,'%d %m %y')
+%d-date
+%m-month
+%y-year
+%D-date with suffix as th or rd
+%M-Month in spellings
+%Y- year with century
+
+Format	Description
+%a	Abbreviated weekday name (Sun to Sat)
+%b	Abbreviated month name (Jan to Dec)
+%c	Numeric month name (0 to 12)
+%D	Day of the month as a numeric value, followed by suffix (1st, 2nd, 3rd, ...)
+%d	Day of the month as a numeric value (01 to 31)
+%e	Day of the month as a numeric value (0 to 31)
+%f	Microseconds (000000 to 999999)
+%H	Hour (00 to 23)
+%h	Hour (00 to 12)
+%I	Hour (00 to 12)
+%i	Minutes (00 to 59)
+%j	Day of the year (001 to 366)
+%k	Hour (0 to 23)
+%l	Hour (1 to 12)
+%M	Month name in full (January to December)
+%m	Month name as a numeric value (00 to 12)
+%p	AM or PM
+%r	Time in 12 hour AM or PM format (hh:mm:ss AM/PM)
+%S	Seconds (00 to 59)
+%s	Seconds (00 to 59)
+%T	Time in 24 hour format (hh:mm:ss)
+%U	Week where Sunday is the first day of the week (00 to 53)
+%u	Week where Monday is the first day of the week (00 to 53)
+%V	Week where Sunday is the first day of the week (01 to 53). Used with %X
+%v	Week where Monday is the first day of the week (01 to 53). Used with %x
+%W	Weekday name in full (Sunday to Saturday)
+%w	Day of the week where Sunday=0 and Saturday=6
+%X	Year for the week where Sunday is the first day of the week. Used with %V
+%x	Year for the week where Monday is the first day of the week. Used with %v
+%Y	Year as a numeric, 4-digit value
+%y	Year as a numeric, 2-digit value

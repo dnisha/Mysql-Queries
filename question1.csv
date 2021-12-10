@@ -1,0 +1,16 @@
+employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id
+113,Luis,Popp,luis.popp@sqltutorial.org,515.124.4567,1999-12-07,6,6900.00,108,10
+112,"Jose Manuel",Urman,"jose manuel.urman@sqltutorial.org",515.124.4469,1998-03-07,6,7800.00,108,10
+111,Ismael,Sciarra,ismael.sciarra@sqltutorial.org,515.124.4369,1997-09-30,6,7700.00,108,10
+110,John,Chen,john.chen@sqltutorial.org,515.124.4269,1997-09-28,6,8200.00,108,10
+109,Daniel,Faviet,daniel.faviet@sqltutorial.org,515.124.4169,1994-08-16,6,9000.00,108,10
+107,Diana,Lorentz,diana.lorentz@sqltutorial.org,590.423.5567,1999-02-07,9,4200.00,103,6
+106,Valli,Pataballa,valli.pataballa@sqltutorial.org,590.423.4560,1998-02-05,9,4800.00,103,6
+105,David,Austin,david.austin@sqltutorial.org,590.423.4569,1997-06-25,9,4800.00,103,6
+104,Bruce,Ernst,bruce.ernst@sqltutorial.org,590.423.4568,1991-05-21,9,6000.00,103,6
+103,Alexander,Hunold,alexander.hunold@sqltutorial.org,590.423.4567,1990-01-03,9,9000.00,102,6
+205,Shelley,Higgins,shelley.higgins@sqltutorial.org,515.123.8080,1994-06-07,2,12000.00,101,11
+204,Hermann,Baer,hermann.baer@sqltutorial.org,515.123.8888,1994-06-07,12,10000.00,101,7
+203,Susan,Mavris,susan.mavris@sqltutorial.org,515.123.7777,1994-06-07,8,6500.00,101,4
+200,Jennifer,Whalen,jennifer.whalen@sqltutorial.org,515.123.4444,1987-09-17,3,4400.00,101,1
+108,Nancy,Greenberg,nancy.greenberg@sqltutorial.org,515.124.4569,1994-08-17,7,12000.00,101,10
