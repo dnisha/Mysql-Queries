@@ -1,0 +1,99 @@
+Constraints-The constraints are rules for restricting DML on columns on table.
+Security 
+Constraints can be applied either at table creation or can  be after table creation.
+
+Types-
+
+1.NOT NULL
+2.UNIQUE
+3.PRIMARY KEY
+4.FOREIGN KEY
+
+Constraints can be applied at the column level or table level
+
+syntax at the time of table creation at column level:
+
+create table tablename (column1 datatype(column_size) constrainttype,column2 datatype(column_size) constraint,......columnn);
+
+syntax at the time of table creation at table level:
+
+create table tablename(column1 datatype(column_size),column2 datatype(column_size),.....columnn
+constraint constarintname constraint_type(column1)
+Constraint constraintname constraint_type(column2)
+..
+..
+...                                        (columnn)
+); 
+
+syntax at the time after table creation column level:
+
+alter table tablename modify column datatype(column_size) constraint_type;
+
+syntax at the time after table creation table level:
+
+alter table tablename add constraint constraint_name constraint_type(column);
+
+1. NOT NULL-
+
+The column cannot NULL values.
+
+NOT NULL can be applied at column level only not at table level.
+Rest other constraints can be applied both at table level or column level.
+ 
+Student
+
+sno int
+sname varchar 
+course varchar 
+marks  int
+fees   int
+
+create table student(sno int,sname varchar(40) NOT NULL,course varchar(40),marks int,fees int); 
+
+2. UNIQUE-
+
+The column cannot contain duplicate values.
+
+In this student table , suppose on sno we will apply UNIQUE.
+
+alter table student add constraint s_uk unique(sno);
+
+3. PRIMARY KEY-
+
+Combination of NOT NULL and UNIQUE
+
+Primary key can only 1 for every table.
+
+alter table student add constraint s_pk primary key(sno);
+
+4. FOREIGN KEY-
+Referential Integrity
+Foreign key column data is dependent on primary key column data.
+
+alter table tablename add constraint constraintname constraint_type(column) references tablename(columnname);
+
+To drop constraint -
+alter table tablename drop constraint constraintname;
+
+alter table tablename drop PRIMARY KEY;
+
+
+5. DEFAULT -
+It is used to define DEFAULT value for that column.
+
+create table tablename(column1 datatype(size) DEFAULT value,column2 datatype DEFAULT value......columnn datatype(size));
+
+alter table tablename modify columnname datatype(size);
+
+
+Value of default should be according to datatype of column.
+
+create table m(m int primary key);
+
+
+To view details constraints:
+
+use information_schema;
+show tables;
+desc key_column_usage;
+select * from key_column_usage where table_name='STUDENT'; 
