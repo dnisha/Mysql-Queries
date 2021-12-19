@@ -1,0 +1,432 @@
+Subprograms or modules or routines
+a) procedures
+b) functions
+
+Advantages Of procedures-
+1. Reusability
+2. Security
+3. Better performance.
+4. Reduces traffic.
+
+disadvantages-
+1. Memory usage is increased.
+2. Sometimes it is difficult to debug stored procedures.
+
+Three modes or parameter in procedures-
+1.IN
+2.OUT
+3.IN OUT
+
+1. IN- ALso default mode.Whenever value of the parameter goes from calling environment to the procedure ,then it is IN.
+
+create or replace procedure procedurename(IN parameter1 datatype(size),.....IN parametern datatype(size))
+begin
+....
+sql statements
+end
+
+calling procedure 
+call procedurename(argument1,...argumentn);
+
+Write a procedure to display the grade of salaries according to the range given below-
+
+=<5000 Grade-C
+between 5001 to 10000 -Grade -B
+> 10000 Grade-A
+and the employee ids entered by user. 
+
+delimiter &&
+create or replace procedure proc2(IN v_empid int,OUT grade varchar(2))
+begin
+declare v_sal int;
+select salary into v_sal from employees where employee_id=v_empid;
+IF v_sal <=5000 THEN
+set grade='C';
+elseif v_sal between 5001 and 10000 THEN
+set grade='B';
+elseif v_sal>10000 then
+set grade='A';
+ELSE
+set grade='No grade';
+end if;
+select grade;
+end&&
+
+
+Write a procedure to display the manager,salary of employee according to given last name.
+
+delimiter $$
+create procedure p7(IN v_name varchar(20),OUT v_mgr int,INOUT v_sal int)
+begin
+select manager_id,salary into v_mgr,v_sal from employees where last_name=v_name;
+select v_mgr,v_sal,v_name;
+end$$
+ 
+call p7('Hunold');
+
+2. OUT parameter 
+
+WHenever value from the procedure goes to the calling environment.
+For OUT parameter there should be atleast one IN parameter.
+
+create or replace procedure procedurename(IN parameter1 datatype(size),.....OUT parametern datatype(size))
+begin
+....
+sql statements
+end
+
+calling procedure 
+call procedurename(argument1,...argumentn);
+
+
+Write a procedure to display the total number of employees in a deparment given by user.
+
+
+delimiter &&
+create procedure proc3(IN v_dep int,OUT v_tot int)
+begin
+select count(employee_id) into v_tot from employees where department_id=v_dep;
+end&&
+
+call proc3(9,@v_tot);
+select @v_tot;
+
+
+3. IN OUT -The same parameter is taking value from calling environment and sending to procedure as well as same parameter taking value from procedure to calling environment.
+For this also,atleast there should be one IN parameter.
+
+
+create or replace procedure(IN parameter1 datatype(size),.....INOUT parametern datatype(size))
+begin
+....
+sql statements
+end
+
+
+Write a procedure for the counter that is incremented by according to input provided.
+
+delimiter $$
+create or replace procedure proc4(IN inc int,INOUT count int)
+begin
+set count=count+inc;
+end$$
+
+set @count=1;
+call proc4(2,@count);
+
+
+write  a procedure to display the maximum salary according to job_id entered by user.
+
+delimiter ##
+create procedure p10(IN v_job int,INOUT v_max int)
+begin
+select max(salary) into v_max from employees where job_id=v_job;
+set v_max=v_max;
+end##
+
+set @v_max=0;
+
+call p10(6,@v_max);
+
+select @v_max;
+
+
+
+
+
+
+LOOPS in mysql-
+
+Three types of loops-
+1. While loop
+2. Repeat until loop
+3. Loop,leave,iterate loop
+
+1. WHILE loop-
+
+Syntax-
+while expression do
+statements;
+end while;
+
+
+To print values as -
+1,2,3,4,5
+
+delimiter $$
+
+create procedure print_val(IN x int)
+
+begin
+
+declare str varchar(255);
+
+set str=' ';
+
+while x<=5 do
+
+set str=concat(str,x,',');
+
+set x=x+1;
+
+end while;
+
+select str;
+
+end$$
+
+call print_val(1);
+
+
+create table areas1 (r int,ar decimal(10,2));
+
+
+delimiter ##
+create procedure p18(IN i int,IN n int)
+begin
+declare r int;
+declare ar decimal(10,2);
+declare pi decimal(10,2);
+set r=i;
+set pi=3.14;
+while r<=n do
+set ar=pi*power(r,2);
+insert into areas1 values(r,ar);
+set r=r+1;
+end while;
+end##
+
+
+2. REPEAT UNTIL loop-
+
+syntax:
+
+repeat 
+statements;
+until expression
+end repeat;
+
+delimiter ##
+create procedure print_val1(IN x int,INOUT str varchar(255))
+begin
+repeat 
+set str=concat(str,x,',');
+set x=x+1;
+until x > 5
+end repeat;
+select str;
+end##
+
+3. LOOP,LEAVE,ITERATE loop-
+
+syntax:
+
+loop_label:LOOP
+if condition then
+leave loop_label;
+end if;
+if condition then
+iterate loop_label;
+else
+statements;
+end if;
+end loop;
+
+create procedure print_val2(IN x int,INOUT str varchar(255))
+begin
+print1:loop
+if x >5 then
+leave print1;
+end if;
+if x<=5 then 
+set str=concat(str,x,',');
+set x=x+1;
+iterate print1;
+end if;
+end loop;
+select str;
+end$$
+
+set @str=' ';
+call print_val2(1,@str);
+select @str;
+
+
+Write  a procedure to calculate area of the circle and store it in table.
+Use Repeat Until and Loop,Leave,Iterate loop
+
+delimiter ##
+create procedure p21(IN i int,IN n int)
+begin
+declare r int;
+declare ar decimal(10,2);
+declare pi decimal(10,2);
+set r=i;
+set pi=3.14;
+repeat
+set ar=pi*power(r,2);
+insert into areas1 values(r,ar);
+set r=r+1;
+until r>n
+end repeat;
+end##
+
+
+delimiter $$
+create procedure p22(IN i int,IN n int)
+begin
+declare r int;
+declare ar decimal(10,2);
+declare pi decimal(10,2);
+set r=i;
+set pi=3.14;
+print2:loop
+If r>n then
+leave print2;
+endif;
+if r<=n then
+set ar=pi*power(r,2);
+insert into areas1 values(r,ar);
+set r=r+1;
+iterate print2;
+endif;
+end loop print2;
+end$$
+
+
+
+Q1. Write a procedure to create the patterns-
+
+*
+**
+***
+****
+*****                
+
+
+*****
+****
+***
+**
+*
+
+For new line \n is used.
+
+
+FUNCTIONS 
+
+A stored function is a special kind of stored program which returns a value.
+It helps in readability,reusability and maintainability of code.
+
+A procedure can return one or more values.
+
+Function syntax:
+
+create or replace function functionname(paramter1,....parametern)
+returns datatype
+begin
+...
+sql statements;
+return statement;
+end;
+
+By default parameter MODE is IN.
+
+Write a function to get grades according to salaries.
+
+delimiter $$
+create or replace function func1(v_empid int)
+returns char
+begin
+declare grade char(2);
+declare v_sal int;
+select salary into v_sal from employees where employee_id=v_empid;
+If v_sal<=5000 then
+set grade='C';
+elseif v_sal between 5001 and 10000 then
+set grade='B';
+elseif v_sal>10000 then 
+set grade='A';
+else
+set grade='No grade';
+end if;
+return grade;
+end$$
+
+create or replace function func1(v_empid int)
+returns char 
+begin
+declare grade char(20);
+declare v_sal int;
+select salary into v_sal from employees where employee_id=v_empid;
+If v_sal<5000 then
+set grade='C';
+elseif v_sal between 5001 and 10000 then
+set grade='B';
+elseif v_sal>10000 then 
+set grade='A';
+ELSE
+set grade='No grade';
+end if;
+return grade;
+end
+select employee_id,salary,func1(100) from employees where employee_id=100;
+
+Deterministic
+It always produce same result for same input parameters.
+
+Cube of a number 
+
+delimiter $$
+create function f2(num int)
+returns int
+deterministic
+begin
+declare totalcube int;
+set totalcube=num*num*num;
+return totalcube;
+end$$
+
+
+Write a function to display number of employees in a department.
+
+
+delimiter &&
+create or replace function func2(v_dept int)
+returns int
+deterministic
+begin
+declare v_tot int;
+select count(employee_id) into v_tot from employees where department_id=v_dept;
+return v_tot;
+end&&
+
+select employee_id,last_name,salary,department_id from employees where department_id=func2(6);
+
+To view information about functions:
+show function status;
+
+use information_schema;
+
+show tables;
+
+select * from routines;
+
+nth highest salary 
+
+LIMIT-SELECT 
+    select_list
+FROM
+    table_name
+LIMIT [offset,] row_count;
+In this syntax:
+
+The offset specifies the offset of the first row to return. The offset of the first row is 0, not 1.
+The row_count specifies the maximum number of rows to return.
+
+
+select distinct(salary) from table
+order by salary desc limit n-1,1;
+
+select * from employees where salary=(select distinct salary from employees
+order by salary desc limit 2,1);
